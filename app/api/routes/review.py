@@ -38,6 +38,8 @@ def submit_decision(
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "Claim is not awaiting review")
     if payload.decision not in ("approved", "denied"):
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "decision must be 'approved' or 'denied'")
+    if payload.decision == "approved" and payload.approved_amount is None:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, "approved_amount is required when decision is 'approved'")
 
     claim.status = ClaimStatus.APPROVED if payload.decision == "approved" else ClaimStatus.DENIED
     claim.approved_amount = payload.approved_amount if payload.decision == "approved" else 0.0

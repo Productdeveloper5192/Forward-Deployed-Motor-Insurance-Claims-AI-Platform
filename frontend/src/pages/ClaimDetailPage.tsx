@@ -296,6 +296,7 @@ export function ClaimDetailPage() {
                     type="number"
                     min={0}
                     step="0.01"
+                    required
                     value={approvedAmount}
                     onChange={(e) => setApprovedAmount(e.target.value)}
                     placeholder={claim.estimated_amount?.toString() ?? ""}
